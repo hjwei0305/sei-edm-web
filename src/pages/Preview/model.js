@@ -1,8 +1,8 @@
 /*
- * @Author: zp
+ * @Author: Eason
  * @Date:   2020-02-02 11:57:38
  * @Last Modified by: Eason
- * @Last Modified time: 2020-09-16 11:33:05
+ * @Last Modified time: 2020-09-16 14:35:35
  */
 import { get } from 'lodash';
 import { utils, message } from 'suid';
@@ -39,6 +39,7 @@ export default modelExtend(model, {
     fileList: [],
     currentFile: null,
     currentFileIndex: 0,
+    currentFileId: '',
     collapsed: false,
     prevButtonDisabled: true,
     nextButtonDisabled: true,
@@ -47,17 +48,30 @@ export default modelExtend(model, {
   },
   effects: {
     *getEntityDocuments({ payload }, { call, put }) {
-      const { entityId, watermark } = payload;
+      const { entityId, watermark, currentFileId } = payload;
       const res = yield call(getEntityDocuments, { entityId });
       if (res.success) {
         const documents = res.data || [];
         const fileList = getFileList(documents);
-        const currentFile = fileList.length > 0 ? fileList[0] : null;
+        let currentFile = fileList.length > 0 ? fileList[0] : null;
         const fileTotalCount = fileList.length;
-        const prevButtonDisabled = true;
+        let currentFileIndex = 0;
+        let prevButtonDisabled = true;
         let nextButtonDisabled = true;
         if (fileTotalCount > 1) {
           nextButtonDisabled = false;
+        }
+        if (currentFileId) {
+          for (let i = 0; i < fileTotalCount; i += 1) {
+            const file = fileList[i];
+            if (file.id === currentFileId) {
+              currentFileIndex = i;
+              currentFile = file;
+              break;
+            }
+          }
+          prevButtonDisabled = currentFileIndex <= 0;
+          nextButtonDisabled = currentFileIndex >= fileTotalCount - 1;
         }
         yield put({
           type: 'updateState',
@@ -66,7 +80,7 @@ export default modelExtend(model, {
             fileList,
             currentFile,
             collapsed: false,
-            currentFileIndex: 0,
+            currentFileIndex,
             prevButtonDisabled,
             nextButtonDisabled,
             fileTotalCount,
@@ -78,17 +92,30 @@ export default modelExtend(model, {
       }
     },
     *getDocuments({ payload }, { call, put }) {
-      const { docIds, watermark } = payload;
+      const { docIds, watermark, currentFileId } = payload;
       const res = yield call(getDocuments, docIds);
       if (res.success) {
         const documents = res.data || [];
         const fileList = getFileList(documents);
-        const currentFile = fileList.length > 0 ? fileList[0] : null;
+        let currentFile = fileList.length > 0 ? fileList[0] : null;
         const fileTotalCount = fileList.length;
-        const prevButtonDisabled = true;
+        let prevButtonDisabled = true;
         let nextButtonDisabled = true;
+        let currentFileIndex = 0;
         if (fileTotalCount > 1) {
           nextButtonDisabled = false;
+        }
+        if (currentFileId) {
+          for (let i = 0; i < fileTotalCount; i += 1) {
+            const file = fileList[i];
+            if (file.id === currentFileId) {
+              currentFileIndex = i;
+              currentFile = file;
+              break;
+            }
+          }
+          prevButtonDisabled = currentFileIndex <= 0;
+          nextButtonDisabled = currentFileIndex >= fileTotalCount - 1;
         }
         yield put({
           type: 'updateState',
@@ -97,7 +124,7 @@ export default modelExtend(model, {
             fileList,
             currentFile,
             collapsed: false,
-            currentFileIndex: 0,
+            currentFileIndex,
             prevButtonDisabled,
             nextButtonDisabled,
             fileTotalCount,

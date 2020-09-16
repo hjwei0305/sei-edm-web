@@ -20,13 +20,15 @@ const { GlobalHotKeys, ObserveKeys } = HottedKey;
 class Preivew extends PureComponent {
   componentDidMount() {
     const { location, dispatch } = this.props;
-    const { entityId, docIds: ids, watermark = '' } = get(location, 'query') || {};
+    const { entityId, docIds: ids, watermark = '', currentFileId = '' } =
+      get(location, 'query') || {};
     if (entityId) {
       dispatch({
         type: 'documentPreivew/getEntityDocuments',
         payload: {
           entityId,
           watermark,
+          currentFileId,
         },
       });
     } else if (ids) {
@@ -42,6 +44,7 @@ class Preivew extends PureComponent {
         payload: {
           docIds,
           watermark,
+          currentFileId,
         },
       });
     }
