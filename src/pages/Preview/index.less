@@ -1,0 +1,111 @@
+@import '../../themes/vars.less';
+
+.file-preview-box {
+  height: 100%;
+  :global {
+    .preview-content-wrap,
+    .preview-content-box,
+    .file-preview-list {
+      height: 100%;
+    }
+    .preview-content {
+      width: 100%;
+      height: calc(100% - 60px);
+      border: 1px solid #252525;
+      > div {
+        width: 100%;
+        height: 100%;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        background-color: @black;
+      }
+    }
+    .list-card-body {
+      .ant-list-item .ant-avatar {
+        background-color: transparent;
+      }
+    }
+    .file-preview-foot-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 60px;
+      margin: 0 auto;
+      line-height: 60px;
+      text-align: center;
+      background-color: #121212;
+      .file-title {
+        position: absolute;
+        left: 16px;
+        color: @white;
+        font-size: 16px;
+      }
+      .btn-item {
+        position: relative;
+        display: inline-block;
+        height: 48px;
+        margin-right: 32px;
+        line-height: 48px;
+        background-color: #f5f5f5;
+        border-width: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        .ant-btn {
+          height: 48px;
+          line-height: 48px;
+          border-width: 0;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .file-preview-list {
+      .suid-list-card-tool-box {
+        .collapse {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          overflow: hidden;
+          color: fade(@black, 65%);
+          text-align: center;
+          border-radius: @border-radius-base;
+          cursor: pointer;
+          transition: background-color ease 0.3s;
+          &:hover {
+            color: @primary-color;
+            background-color: fade(@primary-color, 10%);
+          }
+        }
+      }
+      .ant-list-item {
+        .ant-avatar {
+          transition: all 0.3s ease-in-out;
+          animation: zoomIn 0.7s 1;
+        }
+
+        transition: all 0.3s ease;
+        animation: fadeIn 0.3s 1;
+      }
+      &.ant-layout-sider-collapsed {
+        .list-card-tool-box {
+          justify-content: center;
+          text-align: center;
+        }
+        .ant-list-item-meta-content {
+          display: none;
+          opacity: 0;
+        }
+        .suid-list-card-tool-box {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
