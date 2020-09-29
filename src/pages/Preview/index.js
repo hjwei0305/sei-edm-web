@@ -156,6 +156,20 @@ class Preivew extends PureComponent {
     return getAvatar(item, 32);
   };
 
+  renderRank = (_item, index) => {
+    const { documentPreivew } = this.props;
+    const { collapsed } = documentPreivew;
+    let top = 16;
+    if (collapsed) {
+      top = 32;
+    }
+    let rank = index + 1;
+    if (rank < 10) {
+      rank = `0${rank}`;
+    }
+    return <div style={{ position: 'absolute', left: 2, top, color: '#999' }}>{rank}</div>;
+  };
+
   render() {
     const globalKeyMap = {
       TOGGLE_COLLAPSE: 'c',
@@ -188,6 +202,7 @@ class Preivew extends PureComponent {
         title: file => file.name || file.fileName,
         description: file => file.fileSize,
       },
+      itemTool: this.renderRank,
     };
     const dataLoading =
       loading.effects['documentPreivew/getEntityDocuments'] ||
