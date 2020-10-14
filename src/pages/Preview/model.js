@@ -2,7 +2,7 @@
  * @Author: Eason
  * @Date:   2020-02-02 11:57:38
  * @Last Modified by: Eason
- * @Last Modified time: 2020-09-16 14:35:35
+ * @Last Modified time: 2020-10-14 10:36:22
  */
 import { get } from 'lodash';
 import { utils, message } from 'suid';
@@ -41,6 +41,7 @@ export default modelExtend(model, {
     currentFileIndex: 0,
     currentFileId: '',
     collapsed: false,
+    fileLoading: true,
     prevButtonDisabled: true,
     nextButtonDisabled: true,
     watermark: '',
@@ -145,6 +146,7 @@ export default modelExtend(model, {
       yield put({
         type: 'updateState',
         payload: {
+          fileLoading: true,
           currentFile: fileList[currentIndex],
           currentFileIndex: currentIndex,
           prevButtonDisabled,
@@ -163,6 +165,7 @@ export default modelExtend(model, {
       yield put({
         type: 'updateState',
         payload: {
+          fileLoading: true,
           currentFile: fileList[currentIndex],
           currentFileIndex: currentIndex,
           prevButtonDisabled,

@@ -5,7 +5,7 @@ import cls from 'classnames';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import withRouter from 'umi/withRouter';
 import { Layout, Button, Tooltip } from 'antd';
-import { HottedKey, ListCard, ScrollBar, ExtIcon, PageLoader, utils } from 'suid';
+import { HottedKey, ListCard, ScrollBar, ExtIcon, PageLoader, utils, ListLoader } from 'suid';
 import { constants } from '@/utils';
 import getAvatar from './FileIcon';
 import styles from './index.less';
@@ -108,6 +108,7 @@ class Preivew extends PureComponent {
     dispatch({
       type: 'documentPreivew/updateState',
       payload: {
+        fileLoading: true,
         currentFile,
         currentFileIndex: currentIndex,
         prevButtonDisabled,
@@ -170,6 +171,16 @@ class Preivew extends PureComponent {
     return <div style={{ position: 'absolute', left: 2, top, color: '#999' }}>{rank}</div>;
   };
 
+  handlerLoaded = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'documentPreivew/updateState',
+      payload: {
+        fileLoading: false,
+      },
+    });
+  };
+
   render() {
     const globalKeyMap = {
       TOGGLE_COLLAPSE: 'c',
@@ -188,6 +199,7 @@ class Preivew extends PureComponent {
       collapsed,
       fileList,
       currentFile,
+      fileLoading,
     } = documentPreivew;
     const selectedKeys = currentFile ? [currentFile.id || ''] : [];
     const fileListProps = {
@@ -232,12 +244,16 @@ class Preivew extends PureComponent {
                   <Content className="preview-content">
                     <ObserveKeys except={['left', 'right']}>
                       <ScrollBar>
+                        {fileLoading ? (
+                          <ListLoader style={{ position: 'absolute', height: '50%' }} />
+                        ) : null}
                         <iframe
                           title="preview"
                           scrolling="no"
                           height="100%"
                           width="100%"
-                          src={this.getFileUrl()}
+                          src={this.getFileUrl() || '#'}
+                          onLoad={this.handlerLoaded}
                           frameBorder="0"
                         />
                       </ScrollBar>
