@@ -5,7 +5,7 @@ import cls from 'classnames';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import withRouter from 'umi/withRouter';
 import { Layout, Button, Tooltip } from 'antd';
-import { HottedKey, ListCard, ScrollBar, ExtIcon, PageLoader, utils, ListLoader } from 'suid';
+import { HottedKey, ListCard, ExtIcon, PageLoader, utils, ListLoader } from 'suid';
 import { constants } from '@/utils';
 import getAvatar from './FileIcon';
 import styles from './index.less';
@@ -243,20 +243,18 @@ class Preivew extends PureComponent {
                 <Layout className="preview-content-box">
                   <Content className="preview-content">
                     <ObserveKeys except={['left', 'right']}>
-                      <ScrollBar>
-                        {fileLoading ? (
-                          <ListLoader style={{ position: 'absolute', height: '50%' }} />
-                        ) : null}
-                        <iframe
-                          title="preview"
-                          scrolling="no"
-                          height="100%"
-                          width="100%"
-                          src={this.getFileUrl() || '#'}
-                          onLoad={this.handlerLoaded}
-                          frameBorder="0"
-                        />
-                      </ScrollBar>
+                      {fileLoading ? (
+                        <ListLoader style={{ position: 'absolute', height: '50%' }} />
+                      ) : null}
+                      <iframe
+                        title="preview"
+                        scrolling="auto"
+                        height="100%"
+                        width="100%"
+                        src={this.getFileUrl() || '#'}
+                        onLoad={this.handlerLoaded}
+                        frameBorder="0"
+                      />
                     </ObserveKeys>
                   </Content>
                   <Footer className="file-preview-foot-bar">
