@@ -3,17 +3,34 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { isEqual } from 'lodash';
 import { parseOfdDocument, renderOfd } from 'ofd.js';
-import { ListLoader, ScrollBar } from 'suid';
+import { ListLoader, ScrollBar, utils } from 'suid';
 import styles from './index.less';
 
+const { Watermark } = utils;
 @connect(({ ofdPreivew, loading }) => ({ ofdPreivew, loading }))
 class OfdPreview extends PureComponent {
+  static watermark;
+
   componentDidUpdate(prevProps) {
     const {
-      ofdPreivew: { fileData },
+      ofdPreivew: { fileData, watermark },
     } = this.props;
     if (!isEqual(prevProps.ofdPreivew.fileData, fileData)) {
       this.renderOdfContent();
+      if (!this.watermark) {
+        this.watermark = new Watermark({
+          content: watermark,
+        });
+      }
+      if (!this.watermark.isExist()) {
+        this.watermark.get();
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.watermark) {
+      this.watermark.remove();
     }
   }
 

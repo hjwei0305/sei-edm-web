@@ -2,7 +2,7 @@
  * @Author: Eason
  * @Date:   2020-02-02 11:57:38
  * @Last Modified by: Eason
- * @Last Modified time: 2020-12-30 13:33:45
+ * @Last Modified time: 2020-12-30 15:12:59
  */
 import { utils, message } from 'suid';
 import { getFile } from './service';
@@ -22,6 +22,7 @@ export default modelExtend(model, {
     scale: 0,
     fileData: null,
     rendering: false,
+    watermark: '',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -47,6 +48,7 @@ export default modelExtend(model, {
         yield put({
           type: 'updateState',
           payload: {
+            watermark,
             fileData: result.data,
           },
         });
