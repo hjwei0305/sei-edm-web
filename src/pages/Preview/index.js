@@ -244,7 +244,7 @@ class Preivew extends PureComponent {
                   <Content className="preview-content">
                     <ObserveKeys except={['left', 'right']}>
                       {fileLoading ? (
-                        <ListLoader style={{ position: 'absolute', height: '50%' }} />
+                        <ListLoader style={{ position: 'absolute', height: '100%', left: '10%' }} />
                       ) : null}
                       <iframe
                         title="preview"
