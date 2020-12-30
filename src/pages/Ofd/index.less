@@ -1,0 +1,23 @@
+@import '../../themes/vars.less';
+
+.ofd-preview-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+  text-align: center;
+  background-color: #808080;
+  :global {
+    .scrollbar-container {
+      width: 100%;
+    }
+    .ofd-content {
+      margin: 24px auto;
+      div {
+        margin: 0 auto;
+      }
+    }
+  }
+}

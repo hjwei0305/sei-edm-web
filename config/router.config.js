@@ -16,7 +16,10 @@ export default [
       {
         path: '/preview',
         name: 'preview',
-        routes: [{ path: '/preview', component: './Preview' }],
+        routes: [
+          { path: '/preview', component: './Preview' },
+          { path: '/preview/ofd/:id', component: './Ofd' },
+        ],
       },
     ],
   },
