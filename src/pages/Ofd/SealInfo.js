@@ -6,6 +6,8 @@ import { Descriptions, Alert, Button, Result } from 'antd';
 import { ExtModal, ListLoader } from 'suid';
 
 const invalidText = '[无效的签章结构]';
+const format = 'YYYY-MM-DD HH:mm:ss';
+
 class SealInfo extends Component {
   static propTypes = {
     showModal: PropTypes.bool,
@@ -74,7 +76,10 @@ class SealInfo extends Component {
               </Descriptions.Item>
               <Descriptions.Item label="签章时间">
                 {spSealMakeTime
-                  ? moment(spSealMakeTime).format('YYYY-MM-DD HH:mm:ss')
+                  ? moment
+                      .utc(spSealMakeTime, format)
+                      .local()
+                      .format(format)
                   : invalidText}
               </Descriptions.Item>
               <Descriptions.Item label="签名算法">
@@ -93,11 +98,17 @@ class SealInfo extends Component {
               </Descriptions.Item>
               <Descriptions.Item label="有效起止时间">{`${
                 spSealAuthTimeValidStart
-                  ? moment(spSealAuthTimeValidStart).format('YYYY-MM-DD HH:mm:ss')
+                  ? moment
+                      .utc(spSealAuthTimeValidStart, format)
+                      .local()
+                      .format(format)
                   : invalidText
               } ~ ${
                 spSealAuthTimeValidEnd
-                  ? moment(spSealAuthTimeValidEnd).format('YYYY-MM-DD HH:mm:ss')
+                  ? moment
+                      .utc(spSealAuthTimeValidEnd, format)
+                      .local()
+                      .format(format)
                   : invalidText
               }`}</Descriptions.Item>
               <Descriptions.Item label="印章版本">
