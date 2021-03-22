@@ -68,7 +68,7 @@ class OfdPreview extends PureComponent {
         const contentDiv = document.getElementById(previewId);
         contentDiv.innerHTML = '';
         for (const div of divs) {
-          div.setAttribute('class', 'oft-item');
+          div.setAttribute('class', 'ofd-item');
           contentDiv.appendChild(div);
         }
         that.setSealInfo();
