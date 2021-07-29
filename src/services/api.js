@@ -41,7 +41,7 @@ export async function getAuthorizedFeatures(userId) {
 
 /** 获取验证码 */
 export async function getVerifyCode(reqId) {
-  const url = `${SERVER_PATH}/sei-auth/auth/verifyCode?reqId=${reqId}`;
+  const url = `${SERVER_PATH}/sei-auth/verifyCode/generate?reqId=${reqId}`;
   return request({
     url,
     headers: {

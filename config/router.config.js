@@ -21,6 +21,11 @@ export default [
           { path: '/preview/ofd/:id', component: './Ofd' },
         ],
       },
+      {
+        path: '/ocr',
+        name: 'OCR配置',
+        routes: [{ path: '/ocr/service', component: './Ocr/Service' }],
+      },
     ],
   },
 ];

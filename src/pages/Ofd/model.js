@@ -2,7 +2,7 @@
  * @Author: Eason
  * @Date:   2020-02-02 11:57:38
  * @Last Modified by: Eason
- * @Last Modified time: 2020-12-30 15:12:59
+ * @Last Modified time: 2021-07-29 11:22:08
  */
 import { utils, message } from 'suid';
 import { getFile } from './service';
