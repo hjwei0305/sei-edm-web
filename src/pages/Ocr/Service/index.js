@@ -4,10 +4,11 @@ import { connect } from 'dva';
 import cls from 'classnames';
 import { Card } from 'antd';
 import { ScrollBar, ExtIcon, Space } from 'suid';
+import empty from '@/assets/ocr_empty.svg';
 import FormConfig from './components/FormConfig';
 import styles from './index.less';
 
-const defaultAppIcon = '';
+const defaultAppIcon = empty;
 const { Meta } = Card;
 
 @connect(({ ocrService, loading }) => ({ ocrService, loading }))
@@ -110,11 +111,11 @@ class OcrService extends Component {
             {serviceData.map(d => {
               return (
                 <Card
-                  style={{ width: 300 }}
+                  bordered
                   className="service-item"
                   cover={<img alt="LOGO" src={get(d, 'icon') || defaultAppIcon} />}
                 >
-                  <Meta title={get(d, 'name')} description={get(d, 'remark')} />
+                  <Meta title={get(d, 'name')} description={get(d, 'remark') || get(d, 'code')} />
                 </Card>
               );
             })}
