@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { get } from 'lodash';
 import { Form, Input, Upload, Button } from 'antd';
 import { message, ExtModal, ScrollBar } from 'suid';
@@ -22,6 +22,19 @@ const FormConfig = props => {
   const { getFieldDecorator } = form;
 
   const [logo, setLogo] = useState(get(itemData, 'icon') || defaultAppIcon);
+
+  const clearData = useCallback(() => {
+    setLogo(defaultAppIcon);
+  }, []);
+
+  useEffect(() => {
+    return clearData();
+  }, [clearData]);
+
+  const handlerClose = useCallback(() => {
+    onClose();
+    clearData();
+  }, [clearData, onClose]);
 
   const handlerSave = useCallback(() => {
     form.validateFields((err, formData) => {
@@ -75,7 +88,7 @@ const FormConfig = props => {
   return (
     <ExtModal
       destroyOnClose
-      onCancel={onClose}
+      onCancel={handlerClose}
       visible={visible}
       centered
       width={420}
