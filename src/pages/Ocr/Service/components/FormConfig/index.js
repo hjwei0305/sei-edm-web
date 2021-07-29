@@ -28,7 +28,9 @@ const FormConfig = props => {
   }, []);
 
   useEffect(() => {
-    return clearData();
+    return () => {
+      clearData();
+    };
   }, [clearData]);
 
   const handlerClose = useCallback(() => {
