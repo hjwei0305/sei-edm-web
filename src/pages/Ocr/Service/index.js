@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import { connect } from 'dva';
 import cls from 'classnames';
 import { Card } from 'antd';
-import { ScrollBar, ExtIcon } from 'suid';
+import { ScrollBar, ExtIcon, Space } from 'suid';
 import styles from './index.less';
 
 const defaultAppIcon = '';
@@ -94,7 +94,10 @@ class OcrService extends Component {
               );
             })}
             <div className="service-item trigger-blank">
-              <ExtIcon type="plus" antd />
+              <Space direction="vertical">
+                <ExtIcon type="plus" antd />
+                <span className="blank-text">新建OCR服务</span>
+              </Space>
             </div>
           </div>
         </ScrollBar>
