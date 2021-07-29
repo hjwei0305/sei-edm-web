@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import cls from 'classnames';
 import { Card } from 'antd';
 import { ScrollBar, ExtIcon, Space } from 'suid';
+import FormConfig from './components/FormConfig';
 import styles from './index.less';
 
 const defaultAppIcon = '';
@@ -11,6 +12,17 @@ const { Meta } = Card;
 
 @connect(({ ocrService, loading }) => ({ ocrService, loading }))
 class OcrService extends Component {
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ocrService/updateState',
+      payload: {
+        showFormModal: false,
+        itemData: null,
+      },
+    });
+  }
+
   reloadData = () => {
     const { dispatch } = this.props;
     dispatch({
@@ -23,38 +35,43 @@ class OcrService extends Component {
     dispatch({
       type: 'ocrService/updateState',
       payload: {
-        modalVisible: true,
-        editData: null,
+        showFormModal: true,
+        itemData: null,
       },
     });
   };
 
-  edit = editData => {
+  edit = itemData => {
     const { dispatch } = this.props;
     dispatch({
       type: 'ocrService/updateState',
       payload: {
         modalVisible: true,
-        editData,
+        itemData,
       },
     });
   };
 
-  handleSave = data => {
+  handlerSave = data => {
     const { dispatch } = this.props;
     dispatch({
       type: 'ocrService/save',
       payload: data,
       callback: res => {
         if (res.success) {
-          dispatch({
-            type: 'ocrService/updateState',
-            payload: {
-              modalVisible: false,
-            },
-          });
           this.reloadData();
         }
+      },
+    });
+  };
+
+  closeFormModal = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ocrService/updateState',
+      payload: {
+        showFormModal: false,
+        itemData: null,
       },
     });
   };
@@ -76,8 +93,16 @@ class OcrService extends Component {
 
   render() {
     const {
-      ocrService: { serviceData },
+      loading,
+      ocrService: { serviceData, itemData, showFormModal },
     } = this.props;
+    const formConfigProps = {
+      itemData,
+      visible: showFormModal,
+      onSave: this.handlerSave,
+      saving: loading.effects['ocrService/save'],
+      onClose: this.closeFormModal,
+    };
     return (
       <div className={cls(styles['container-box'])}>
         <ScrollBar>
@@ -93,7 +118,10 @@ class OcrService extends Component {
                 </Card>
               );
             })}
-            <div className="service-item trigger-blank">
+            <div
+              className={cls('service-item', 'trigger-blank', { 'show-form-modal': showFormModal })}
+              onClick={this.add}
+            >
               <Space direction="vertical">
                 <ExtIcon type="plus" antd />
                 <span className="blank-text">新建OCR服务</span>
@@ -101,6 +129,7 @@ class OcrService extends Component {
             </div>
           </div>
         </ScrollBar>
+        <FormConfig {...formConfigProps} />
       </div>
     );
   }

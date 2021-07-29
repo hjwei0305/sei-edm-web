@@ -1,26 +1,35 @@
 @import '../../../../../themes/vars.less';
 
 .container-box {
-  position: relative;
   padding: 0;
   :global {
+    .ant-modal-body {
+      height: 480px;
+      padding: 0;
+      .ant-form {
+        padding: 24px;
+      }
+    }
     .logo-box {
-      height: 120px;
+      height: 140px;
       .icon {
         text-align: center;
         img {
-          width: 80px;
-          height: 80px;
+          width: 120px;
+          max-width: 100%;
+          height: auto;
+          max-height: 100%;
           border-radius: 4px;
         }
       }
       .tool-box {
-        width: 360px;
+        width: 210px;
         > * {
           width: 100%;
         }
         .desc {
           margin-top: 8px;
+          line-height: 22px;
         }
       }
     }

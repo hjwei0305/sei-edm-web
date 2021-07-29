@@ -8,7 +8,8 @@ export default modelExtend(model, {
   namespace: 'ocrService',
 
   state: {
-    editService: null,
+    itemData: null,
+    showFormModal: false,
     serviceData: [],
   },
   subscriptions: {
@@ -50,7 +51,8 @@ export default modelExtend(model, {
         yield put({
           type: 'updateState',
           payload: {
-            editService: null,
+            itemData: null,
+            showFormModal: false,
           },
         });
       } else {
