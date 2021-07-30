@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import cls from 'classnames';
 import QueueAnim from 'rc-queue-anim';
 import { Card, Avatar, Modal } from 'antd';
-import { ScrollBar, ExtIcon, Space } from 'suid';
+import { ScrollBar, ExtIcon, Space, ListLoader } from 'suid';
 import empty from '@/assets/ocr_empty.svg';
 import { constants } from '@/utils';
 import FormConfig from './components/FormConfig';
@@ -206,42 +206,58 @@ class OcrService extends Component {
     return (
       <div className={cls(styles['container-box'])}>
         <ScrollBar>
-          <QueueAnim component="div" type="scale" className="service-box">
-            {serviceData.map(d => {
-              return (
-                <Card
-                  key={d.id}
-                  bordered
-                  hoverable
-                  className="service-item"
-                  cover={<img alt="LOGO" src={get(d, 'icon') || defaultAppIcon} />}
-                >
-                  <Meta
-                    avatar={
-                      <Avatar shape="square" className={d.frozen ? 'frozen' : 'active'} size={42}>
-                        {d.frozen ? '已停用' : '使用中'}
-                      </Avatar>
-                    }
-                    title={get(d, 'name')}
-                    description={get(d, 'remark') || get(d, 'code')}
-                  />
-                  <div className="action-box">
-                    <ExtAction recordItem={d} onAction={this.handlerAction} />
-                  </div>
-                </Card>
-              );
-            })}
-            <div
-              key="trigger-blank"
-              className={cls('service-item', 'trigger-blank', { 'show-form-modal': showFormModal })}
-              onClick={this.add}
-            >
-              <Space direction="vertical">
-                <ExtIcon type="plus" antd />
-                <span className="blank-text">新建OCR服务</span>
-              </Space>
+          {loading.effects['ocrService/getAllServices'] ? (
+            <div className="service-box">
+              <div
+                key="trigger-blank"
+                className={cls('service-item', 'trigger-blank', {
+                  'show-form-modal': showFormModal,
+                })}
+                onClick={this.add}
+              >
+                <ListLoader />
+              </div>
             </div>
-          </QueueAnim>
+          ) : (
+            <QueueAnim component="div" type="scale" className="service-box">
+              {serviceData.map(d => {
+                return (
+                  <Card
+                    key={d.id}
+                    bordered
+                    hoverable
+                    className="service-item"
+                    cover={<img alt="LOGO" src={get(d, 'icon') || defaultAppIcon} />}
+                  >
+                    <Meta
+                      avatar={
+                        <Avatar shape="square" className={d.frozen ? 'frozen' : 'active'} size={42}>
+                          {d.frozen ? '已停用' : '使用中'}
+                        </Avatar>
+                      }
+                      title={get(d, 'name')}
+                      description={get(d, 'remark') || get(d, 'code')}
+                    />
+                    <div className="action-box">
+                      <ExtAction recordItem={d} onAction={this.handlerAction} />
+                    </div>
+                  </Card>
+                );
+              })}
+              <div
+                key="trigger-blank"
+                className={cls('service-item', 'trigger-blank', {
+                  'show-form-modal': showFormModal,
+                })}
+                onClick={this.add}
+              >
+                <Space direction="vertical">
+                  <ExtIcon type="plus" antd />
+                  <span className="blank-text">新建OCR服务</span>
+                </Space>
+              </div>
+            </QueueAnim>
+          )}
         </ScrollBar>
         <FormConfig {...formConfigProps} />
       </div>
