@@ -28,6 +28,10 @@ const FormConfig = props => {
   }, []);
 
   useEffect(() => {
+    setLogo(get(itemData, 'icon') || defaultAppIcon);
+  }, [itemData]);
+
+  useEffect(() => {
     return () => {
       clearData();
     };

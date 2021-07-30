@@ -2,7 +2,7 @@
  * @Author: Eason
  * @Date: 2020-02-21 18:03:16
  * @Last Modified by: Eason
- * @Last Modified time: 2020-05-30 23:57:41
+ * @Last Modified time: 2021-07-30 09:12:54
  */
 import { base } from '../../public/app.config.json';
 
@@ -52,10 +52,20 @@ const APP_MODULE_BTN_KEY = {
   DELETE: `${APP_BASE}_DELETE`,
 };
 
+/** OCR服务功能操作 */
+const OCR_SERVICE_BTN_KEY = {
+  CREATE: 'OCR_SERVICE_CREATE',
+  EDIT: 'OCR_SERVICE_EIDT',
+  DELETE: 'OCR_SERVICE_DELETE',
+  FROZEN: 'OCR_SERVICE_FROZEN',
+  ACTIVE: 'OCR_SERVICE_ACTIVE',
+};
+
 export default {
   APP_BASE,
   LOCAL_PATH,
   SERVER_PATH,
   APP_MODULE_BTN_KEY,
   LOGIN_STATUS,
+  OCR_SERVICE_BTN_KEY,
 };

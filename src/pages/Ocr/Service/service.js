@@ -50,6 +50,9 @@ export async function save(data) {
 
 /** 删除 */
 export async function del(params) {
-  const url = `${SERVER_PATH}/workNode/delete/${params.id}`;
-  return request.delete(url);
+  const url = `${SERVER_PATH}/edm-service/ocrTemplate/removeService/${params.id}`;
+  return request({
+    url,
+    method: 'DELETE',
+  });
 }
