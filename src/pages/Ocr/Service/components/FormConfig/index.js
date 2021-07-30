@@ -47,8 +47,8 @@ const FormConfig = props => {
       if (err) {
         return;
       }
-      const params = { icon: logo };
-      Object.assign(params, itemData, formData);
+      const params = {};
+      Object.assign(params, itemData, formData, { icon: logo });
       if (onSave) {
         onSave(params);
       }

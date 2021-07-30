@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { get } from 'lodash';
 import { connect } from 'dva';
 import cls from 'classnames';
+import QueueAnim from 'rc-queue-anim';
 import { Card, Avatar, Modal } from 'antd';
 import { ScrollBar, ExtIcon, Space } from 'suid';
 import empty from '@/assets/ocr_empty.svg';
@@ -205,10 +206,11 @@ class OcrService extends Component {
     return (
       <div className={cls(styles['container-box'])}>
         <ScrollBar>
-          <div className="service-box">
+          <QueueAnim component="div" type="scale" className="service-box">
             {serviceData.map(d => {
               return (
                 <Card
+                  key={d.id}
                   bordered
                   hoverable
                   className="service-item"
@@ -230,6 +232,7 @@ class OcrService extends Component {
               );
             })}
             <div
+              key="trigger-blank"
               className={cls('service-item', 'trigger-blank', { 'show-form-modal': showFormModal })}
               onClick={this.add}
             >
@@ -238,7 +241,7 @@ class OcrService extends Component {
                 <span className="blank-text">新建OCR服务</span>
               </Space>
             </div>
-          </div>
+          </QueueAnim>
         </ScrollBar>
         <FormConfig {...formConfigProps} />
       </div>
