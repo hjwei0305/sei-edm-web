@@ -24,7 +24,10 @@ export default [
       {
         path: '/ocr',
         name: 'OCR配置',
-        routes: [{ path: '/ocr/service', component: './Ocr/Service' }],
+        routes: [
+          { path: '/ocr/service', component: './Ocr/Service' },
+          { path: '/ocr/template', component: './Ocr/TemplateAndElement' },
+        ],
       },
     ],
   },

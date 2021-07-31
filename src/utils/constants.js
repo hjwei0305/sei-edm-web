@@ -2,7 +2,7 @@
  * @Author: Eason
  * @Date: 2020-02-21 18:03:16
  * @Last Modified by: Eason
- * @Last Modified time: 2021-07-30 09:12:54
+ * @Last Modified time: 2021-07-31 14:55:35
  */
 import { base } from '../../public/app.config.json';
 
@@ -61,6 +61,43 @@ const OCR_SERVICE_BTN_KEY = {
   ACTIVE: 'OCR_SERVICE_ACTIVE',
 };
 
+/**
+ * OCR模板类型
+ * BusInvoice:公共汽车票,
+ * CarInvoice:汽车票,
+ * FlightInvoice:飞机票,
+ * InvoiceGeneral:,
+ * OTHER:其它,
+ * QuotaInvoice:定额发票
+ * ShipInvoice:船票,
+ * TaxiInvoice:出租车发票,
+ * TollInvoice,
+ * TrainTicket:火车票,
+ * VatInvoice:增值税发票,
+ * VatRollInvoice
+ */
+
+const OCR_TEMPLATE_TYPE = {
+  BUS_INVOICE: { type: 'BusInvoice', title: '汽车票', desc: '' },
+  CAR_INVOICE: { type: 'CarInvoice', title: '购车发票', desc: '' },
+  FLIGHT_INVOICE: { type: 'FlightInvoice', title: '机票行程单', desc: '' },
+  INVOICE_GENERAL: { type: 'InvoiceGeneral', title: '通用机打发票', desc: '' },
+  QUOTA_INVOICE: { type: 'QuotaInvoice', title: '定额发票', desc: '' },
+  SHIP_INVOICE: { type: 'ShipInvoice', title: '轮船票', desc: '' },
+  TAX_INVOICE: { type: 'TaxiInvoice', title: '出租车发票', desc: '' },
+  TOLL_INVOICE: { type: 'TollInvoice', title: '过路过桥费发票', desc: '' },
+  TRAIN_INVOICE: { type: 'TrainTicket', title: '火车票', desc: '' },
+  VAT_INVOICE: { type: 'VatInvoice', title: '增值税发票', desc: '' },
+  VAT_ROLL_INVOICE: { type: 'VatRollInvoice', title: '增值税发票(卷票)', desc: '' },
+  OTHER: { type: 'OTHER', title: '其他未知票据', desc: '其它未定义的票据' },
+};
+
+/** OCR模板操作类型 */
+const OCR_TEMPLATE_ACTION = {
+  ADD: 'add',
+  UPDATE: 'update',
+};
+
 export default {
   APP_BASE,
   LOCAL_PATH,
@@ -68,4 +105,6 @@ export default {
   APP_MODULE_BTN_KEY,
   LOGIN_STATUS,
   OCR_SERVICE_BTN_KEY,
+  OCR_TEMPLATE_TYPE,
+  OCR_TEMPLATE_ACTION,
 };
