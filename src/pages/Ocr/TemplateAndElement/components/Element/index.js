@@ -33,7 +33,7 @@ const Element = props => {
       {
         title: formatMessage({ id: 'global.operation', defaultMessage: '操作' }),
         key: 'operation',
-        width: 100,
+        width: 80,
         align: 'center',
         dataIndex: 'id',
         className: 'action',

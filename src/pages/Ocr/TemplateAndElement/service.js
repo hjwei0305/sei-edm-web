@@ -68,6 +68,7 @@ export async function saveElement(data) {
   const url = `${SERVER_PATH}/edm-service/ocrTemplate/putElement/${id}`;
   return request({
     url,
-    data: { name },
+    method: 'POST',
+    data: name,
   });
 }
