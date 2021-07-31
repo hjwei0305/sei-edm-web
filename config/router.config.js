@@ -29,6 +29,11 @@ export default [
           { path: '/ocr/template', component: './Ocr/TemplateAndElement' },
         ],
       },
+      {
+        path: '/bizConfig',
+        name: '业务配置',
+        routes: [{ path: '/bizConfig/domain', component: './BizConfig/Domain' }],
+      },
     ],
   },
 ];
