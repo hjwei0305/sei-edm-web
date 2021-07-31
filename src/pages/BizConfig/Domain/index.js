@@ -214,14 +214,11 @@ class BizDomain extends Component {
       searchWidth: 320,
       lineNumber: false,
       allowCustomColumns: false,
-      searchPlaceHolder: '事件代码、名称、业务来源和标签名关键字',
-      searchProperties: ['code', 'name', 'bizFrom', 'label'],
+      searchPlaceHolder: '领域代码、名称、备注说明关键字',
+      searchProperties: ['code', 'name', 'remark'],
       onTableRef: ref => (this.tablRef = ref),
       store: {
-        url: `${SERVER_PATH}/bems-v6/event/findAll`,
-      },
-      sort: {
-        field: { rank: 'asc', code: null, name: null },
+        url: `${SERVER_PATH}/edm-service/bizDomain/findAll`,
       },
     };
     return (
