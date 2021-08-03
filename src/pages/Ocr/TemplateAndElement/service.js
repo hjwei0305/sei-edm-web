@@ -69,6 +69,7 @@ export async function saveElement(data) {
   return request({
     url,
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     data: name,
   });
 }
