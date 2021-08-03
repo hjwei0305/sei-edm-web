@@ -1,10 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { get } from 'lodash';
 import { Form, Input, Upload, Button } from 'antd';
-import { message, ExtModal, ScrollBar } from 'suid';
+import { message, ExtModal, ScrollBar, ComboList } from 'suid';
 import empty from '@/assets/ocr_empty.svg';
+import { constants } from '@/utils';
 import styles from './index.less';
 
+const { SERVER_PATH } = constants;
 const FormItem = Form.Item;
 const { TextArea } = Input;
 const defaultAppIcon = empty;
@@ -22,6 +24,7 @@ const FormConfig = props => {
   const { getFieldDecorator } = form;
 
   const [logo, setLogo] = useState(get(itemData, 'icon') || defaultAppIcon);
+  getFieldDecorator('code', { initialValue: get(itemData, 'code') });
 
   const clearData = useCallback(() => {
     setLogo(defaultAppIcon);
@@ -91,6 +94,25 @@ const FormConfig = props => {
     return uploadProps;
   }, [beforeUpload, customRequest]);
 
+  const getServiceProviderListProps = useCallback(() => {
+    const serviceProviderListProps = {
+      form,
+      store: {
+        url: `${SERVER_PATH}/edm-service/ocrTemplate/getSystemOcrServices`,
+      },
+      pagination: false,
+      showSearch: false,
+      name: 'name',
+      field: ['code'],
+      reader: {
+        name: 'name',
+        field: ['code'],
+        description: 'code',
+      },
+    };
+    return serviceProviderListProps;
+  }, [form]);
+
   return (
     <ExtModal
       destroyOnClose
@@ -123,27 +145,16 @@ const FormConfig = props => {
               </div>
             </div>
           </FormItem>
-          <FormItem label="服务代码" extra="注册的bean">
-            {getFieldDecorator('code', {
-              initialValue: get(itemData, 'code'),
-              rules: [
-                {
-                  required: true,
-                  message: '服务代码不能为空',
-                },
-              ],
-            })(<Input autoComplete="off" />)}
-          </FormItem>
-          <FormItem label="服务名称">
+          <FormItem label="服务提供商">
             {getFieldDecorator('name', {
               initialValue: get(itemData, 'name'),
               rules: [
                 {
                   required: true,
-                  message: '服务名称不能为空',
+                  message: '服务提供商不能为空',
                 },
               ],
-            })(<Input autoComplete="off" />)}
+            })(<ComboList {...getServiceProviderListProps()} />)}
           </FormItem>
           <FormItem label="秘钥ID">
             {getFieldDecorator('secretId', {
