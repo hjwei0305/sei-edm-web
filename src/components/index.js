@@ -1,5 +1,4 @@
 import Loader from './Loader';
+import FilterView from './FilterView';
 
-export default {
-  Loader,
-};
+export { Loader, FilterView };

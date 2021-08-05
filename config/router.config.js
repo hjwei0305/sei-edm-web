@@ -32,7 +32,10 @@ export default [
       {
         path: '/bizConfig',
         name: '业务配置',
-        routes: [{ path: '/bizConfig/domain', component: './BizConfig/Domain' }],
+        routes: [
+          { path: '/bizConfig/domain', component: './BizConfig/Domain' },
+          { path: '/bizConfig/typeList', component: './BizConfig/TypeAndElement' },
+        ],
       },
     ],
   },

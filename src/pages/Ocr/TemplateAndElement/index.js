@@ -16,7 +16,7 @@ const { Sider, Content } = Layout;
 const { Search } = Input;
 
 @connect(({ templateAndElement, loading }) => ({ templateAndElement, loading }))
-class OcrService extends Component {
+class TemplateAndElement extends Component {
   static confirmModal;
 
   static listCardRef;
@@ -284,4 +284,4 @@ class OcrService extends Component {
   }
 }
 
-export default OcrService;
+export default TemplateAndElement;
