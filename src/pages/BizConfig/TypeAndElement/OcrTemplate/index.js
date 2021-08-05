@@ -160,8 +160,8 @@ class OcrTemplate extends Component {
       <Space direction="vertical">
         {item.templateType}
         <Space>
-          <MatchRule ocrTemplate={item} onAction={this.setMatchRule} />
           <Button size="small">要素映射</Button>
+          <MatchRule ocrTemplate={item} onAction={this.setMatchRule} />
         </Space>
       </Space>
     );

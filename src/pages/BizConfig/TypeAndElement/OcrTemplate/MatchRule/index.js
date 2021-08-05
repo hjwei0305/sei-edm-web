@@ -109,7 +109,7 @@ const MatchRule = ({ ocrTemplate, onAction = () => {} }) => {
         </Button>
       );
     }
-    return '匹配规则设置';
+    return '规则设置';
   }, [ocrTemplate]);
 
   return (

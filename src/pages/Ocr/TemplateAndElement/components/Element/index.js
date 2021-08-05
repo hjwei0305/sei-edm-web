@@ -56,12 +56,6 @@ const Element = props => {
         width: 220,
         required: true,
       },
-      {
-        title: '映射实体类',
-        dataIndex: 'className',
-        width: 380,
-        render: t => t || '-',
-      },
     ];
     const toolBarProps = {
       left: (
