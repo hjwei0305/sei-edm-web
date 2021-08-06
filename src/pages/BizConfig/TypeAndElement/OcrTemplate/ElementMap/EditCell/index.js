@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import cls from 'classnames';
-import { Dropdown, Input, Tooltip } from 'antd';
+import { get } from 'lodash';
+import { Dropdown, Input, Tooltip, Button, Popconfirm } from 'antd';
 import { ListCard, ExtIcon, Space } from 'suid';
 import styles from './index.less';
 
@@ -16,6 +17,7 @@ const MatchRule = props => {
     displayCode,
     rowKey,
     onSave = () => {},
+    dealId,
     saving,
     reader = {
       name: 'name',
@@ -36,11 +38,18 @@ const MatchRule = props => {
       setSelectedKeys([key]);
       onSave(item, rowData, () => {
         setShow(false);
+        setSelectedKeys([]);
       });
-      setSelectedKeys([]);
     },
     [onSave, rowData],
   );
+
+  const clearSet = useCallback(() => {
+    onSave(null, rowData, () => {
+      setShow(false);
+      setSelectedKeys([]);
+    });
+  }, [onSave, rowData]);
 
   const handlerSearchChange = useCallback(v => {
     listCardRef.handlerSearchChange(v);
@@ -96,6 +105,17 @@ const MatchRule = props => {
         title: item => item[reader.name],
         description: item => item[reader.description],
       },
+      extra: displayName ? (
+        <Popconfirm
+          overlayClassName={styles['popconfirm-set']}
+          title="确定要清除设置吗?"
+          onConfirm={clearSet}
+        >
+          <Button size="small" type="danger">
+            清除设置
+          </Button>
+        </Popconfirm>
+      ) : null,
       store,
       onListCardRef: ref => (listCardRef = ref),
       customTool: renderCustomTool,
@@ -107,13 +127,16 @@ const MatchRule = props => {
     selectedKeys,
     rowKey,
     renderTag,
+    displayName,
+    clearSet,
     store,
     renderCustomTool,
-    reader,
+    reader.name,
+    reader.description,
   ]);
 
   const renderTitle = useMemo(() => {
-    if (saving) {
+    if (saving && dealId === get(rowData, 'id')) {
       return (
         <div className="allow-edit">
           <ExtIcon type="loading" antd spin style={{ marginLeft: 4 }} />
@@ -141,7 +164,7 @@ const MatchRule = props => {
         </div>
       </Tooltip>
     );
-  }, [displayCode, displayName, labelTitle, saving]);
+  }, [displayCode, displayName, labelTitle, rowData, dealId, saving]);
 
   return (
     <Dropdown

@@ -11,6 +11,7 @@ const { SERVER_PATH } = constants;
 const ElementMap = props => {
   const { ocrTemplate } = props;
 
+  const [dealId, setDealId] = useState();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [elementData, setElementData] = useState([]);
@@ -52,8 +53,9 @@ const ElementMap = props => {
 
   const handlerSaveRule = useCallback(
     (it, row, callback = () => {}) => {
-      setSaving(true);
       const rowId = get(row, 'id');
+      setSaving(true);
+      setDealId(rowId);
       const ruleCode = get(it, 'fieldName') || '';
       request({
         method: 'POST',
@@ -75,8 +77,9 @@ const ElementMap = props => {
 
   const handlerSaveFieldMap = useCallback(
     (it, row, callback = () => {}) => {
-      setSaving(true);
       const rowId = get(row, 'id');
+      setSaving(true);
+      setDealId(rowId);
       const fieldName = get(it, 'fieldName') || '';
       request({
         method: 'POST',
@@ -129,6 +132,7 @@ const ElementMap = props => {
                   type: r.templateType,
                 },
               }}
+              dealId={dealId}
               rowKey="fieldName"
               rowData={r}
               displayName={t}
@@ -160,6 +164,7 @@ const ElementMap = props => {
                   template: r.templateType,
                 },
               }}
+              dealId={dealId}
               rowKey="code"
               rowData={r}
               displayName={t}
@@ -194,7 +199,7 @@ const ElementMap = props => {
       dataSource: elementData,
     };
     return tbProps;
-  }, [elementData, handlerSaveFieldMap, handlerSaveRule, saving]);
+  }, [dealId, elementData, handlerSaveFieldMap, handlerSaveRule, saving]);
 
   const renderContent = useMemo(() => {
     if (loading) {
