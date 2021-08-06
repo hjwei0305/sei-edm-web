@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import cls from 'classnames';
 import { get } from 'lodash';
-import { Dropdown, Input, Button } from 'antd';
+import { Dropdown, Input, Button, Tooltip } from 'antd';
 import { ListCard, ExtIcon } from 'suid';
 import { constants } from '@/utils';
 import styles from './index.less';
@@ -49,6 +49,7 @@ const MatchRule = ({ ocrTemplate, onAction = () => {} }) => {
     return (
       <>
         <Search
+          allowClear
           placeholder="输入代码、名称关键字查询"
           onChange={e => handlerSearchChange(e.target.value)}
           onSearch={handlerSearch}
@@ -104,9 +105,11 @@ const MatchRule = ({ ocrTemplate, onAction = () => {} }) => {
     const ruleName = get(ocrTemplate, 'ruleName');
     if (ruleName) {
       return (
-        <Button type="link" size="small">
-          {ruleName}
-        </Button>
+        <Tooltip title="匹配规则设置">
+          <Button type="link" size="small">
+            {ruleName}
+          </Button>
+        </Tooltip>
       );
     }
     return '规则设置';

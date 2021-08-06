@@ -4,8 +4,9 @@ import cls from 'classnames';
 import { get } from 'lodash';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import { Button, Drawer, Popconfirm, Input } from 'antd';
-import { Space, ListCard } from 'suid';
+import { Space, ListCard, ExtIcon } from 'suid';
 import MatchRule from './MatchRule';
+import ElementMap from './ElementMap';
 import styles from './index.less';
 
 const { Search } = Input;
@@ -42,52 +43,12 @@ class OcrTemplate extends Component {
     });
   };
 
-  add = () => {
-    const { dispatch, selectedBizType } = this.props;
-    dispatch({
-      type: 'typeOrcTemplate/updateState',
-      payload: {
-        showAssignModal: true,
-        currentOcrTemplate: null,
-      },
-    });
-    dispatch({
-      type: 'typeOrcTemplate/getAssignedOcrTemplate',
-      payload: {
-        bizTypeId: get(selectedBizType, 'id'),
-      },
-    });
-  };
-
-  edit = currentOcrTemplate => {
+  showAssign = () => {
     const { dispatch } = this.props;
     dispatch({
       type: 'typeOrcTemplate/updateState',
       payload: {
-        showFormModal: true,
-        currentOcrTemplate,
-      },
-    });
-  };
-
-  save = data => {
-    const { dispatch, typeOrcTemplate, selectedBizType } = this.props;
-    const { currentOcrTemplate } = typeOrcTemplate;
-    let action = 'addElement';
-    if (currentOcrTemplate) {
-      action = 'updateElement';
-    }
-    dispatch({
-      type: `typeOrcTemplate/${action}`,
-      payload: {
-        bizTypeId: get(selectedBizType, 'id'),
-        ...data,
-      },
-      callback: res => {
-        if (res.success) {
-          this.closeFormModal();
-          this.reloadData();
-        }
+        showAssignModal: true,
       },
     });
   };
@@ -137,7 +98,7 @@ class OcrTemplate extends Component {
     return (
       <>
         <Space>
-          <Button type="primary" onClick={this.add}>
+          <Button type="primary" onClick={this.showAssign}>
             分配OCR模板
           </Button>
           <Button onClick={this.reloadData}>
@@ -155,15 +116,56 @@ class OcrTemplate extends Component {
     );
   };
 
+  handlerShowElementMap = item => {
+    const {
+      dispatch,
+      typeOrcTemplate: { showElementMap, currentOcrTemplate },
+    } = this.props;
+    if (currentOcrTemplate && item.id === currentOcrTemplate.id) {
+      dispatch({
+        type: 'typeOrcTemplate/updateState',
+        payload: {
+          currentOcrTemplate: !showElementMap ? item : null,
+          showElementMap: !showElementMap,
+        },
+      });
+    } else {
+      dispatch({
+        type: 'typeOrcTemplate/updateState',
+        payload: {
+          currentOcrTemplate: item,
+          showElementMap: true,
+        },
+      });
+    }
+  };
+
   renderDesc = item => {
+    const {
+      typeOrcTemplate: { showElementMap, currentOcrTemplate },
+    } = this.props;
     return (
-      <Space direction="vertical">
-        {item.templateType}
-        <Space>
-          <Button size="small">要素映射</Button>
-          <MatchRule ocrTemplate={item} onAction={this.setMatchRule} />
+      <>
+        <Space direction="vertical">
+          {item.templateType}
+          <Space>
+            <Button
+              size="small"
+              className={cls('trigger-map', 'ant-dropdown-trigger', {
+                'ant-dropdown-open': showElementMap && currentOcrTemplate.id === item.id,
+              })}
+              onClick={() => this.handlerShowElementMap(item)}
+            >
+              要素映射
+              <ExtIcon type="down" antd />
+            </Button>
+            <MatchRule ocrTemplate={item} onAction={this.setMatchRule} />
+          </Space>
         </Space>
-      </Space>
+        {showElementMap && currentOcrTemplate.id === item.id ? (
+          <ElementMap ocrTemplate={item} />
+        ) : null}
+      </>
     );
   };
 
@@ -185,7 +187,7 @@ class OcrTemplate extends Component {
       showArrow: false,
       loading: loading.effects['typeOrcTemplate/getAssignedOcrTemplate'],
       itemField: {
-        title: item => item.templateType,
+        title: item => item.remark,
         description: this.renderDesc,
       },
       onListCardRef: ref => (this.listCardRef = ref),

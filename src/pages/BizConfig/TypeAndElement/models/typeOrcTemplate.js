@@ -20,6 +20,7 @@ export default modelExtend(model, {
     showUnAssign: false,
     allOcrTemplateData: [],
     assignedOcrTemplateData: [],
+    showElementMap: false,
   },
   effects: {
     *getAssignedOcrTemplate({ payload, callback }, { call, put, select }) {

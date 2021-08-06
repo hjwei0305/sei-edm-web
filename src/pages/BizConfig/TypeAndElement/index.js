@@ -182,16 +182,16 @@ class TypeAndElement extends Component {
       },
     });
     if (currentTabKey === 'ocrTemplate') {
-      this.getAssignedOcrTemplate();
+      this.getAssignedOcrTemplate(selectedBizType);
     }
   };
 
-  getAssignedOcrTemplate = () => {
+  getAssignedOcrTemplate = bizType => {
     const {
       dispatch,
       typeAndElement: { selectedBizType },
     } = this.props;
-    const bizTypeId = get(selectedBizType, 'id');
+    const bizTypeId = bizType ? get(bizType, 'id') : get(selectedBizType, 'id');
     if (bizTypeId) {
       dispatch({
         type: 'typeOrcTemplate/getAssignedOcrTemplate',
