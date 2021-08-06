@@ -13,7 +13,8 @@ const ElementMap = props => {
 
   const [dealId, setDealId] = useState();
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [mapSaving, setMapSaving] = useState(false);
+  const [ruleSaving, setRuleSaving] = useState(false);
   const [elementData, setElementData] = useState([]);
 
   const getMapData = useCallback(() => {
@@ -54,7 +55,7 @@ const ElementMap = props => {
   const handlerSaveRule = useCallback(
     (it, row, callback = () => {}) => {
       const rowId = get(row, 'id');
-      setSaving(true);
+      setRuleSaving(true);
       setDealId(rowId);
       const ruleCode = get(it, 'fieldName') || '';
       request({
@@ -69,7 +70,7 @@ const ElementMap = props => {
           }
         })
         .finally(() => {
-          setSaving(false);
+          setRuleSaving(false);
         });
     },
     [updateLocalData],
@@ -78,7 +79,7 @@ const ElementMap = props => {
   const handlerSaveFieldMap = useCallback(
     (it, row, callback = () => {}) => {
       const rowId = get(row, 'id');
-      setSaving(true);
+      setMapSaving(true);
       setDealId(rowId);
       const fieldName = get(it, 'fieldName') || '';
       request({
@@ -93,7 +94,7 @@ const ElementMap = props => {
           }
         })
         .finally(() => {
-          setSaving(false);
+          setMapSaving(false);
         });
     },
     [updateLocalData],
@@ -138,7 +139,7 @@ const ElementMap = props => {
               displayName={t}
               displayCode={r.mappingField}
               onSave={handlerSaveFieldMap}
-              saving={saving}
+              saving={mapSaving}
               reader={{
                 name: 'name',
                 description: 'fieldName',
@@ -170,7 +171,7 @@ const ElementMap = props => {
               displayName={t}
               displayCode={r.ruleCode}
               onSave={handlerSaveRule}
-              saving={saving}
+              saving={ruleSaving}
               reader={{
                 name: 'name',
                 description: 'code',
@@ -199,7 +200,7 @@ const ElementMap = props => {
       dataSource: elementData,
     };
     return tbProps;
-  }, [dealId, elementData, handlerSaveFieldMap, handlerSaveRule, saving]);
+  }, [dealId, elementData, handlerSaveFieldMap, handlerSaveRule, mapSaving, ruleSaving]);
 
   const renderContent = useMemo(() => {
     if (loading) {

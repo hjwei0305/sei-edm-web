@@ -83,6 +83,7 @@ const MatchRule = ({ ocrTemplate, onAction = () => {} }) => {
       selectedKeys,
       className: styles['float-ocr-template-rule-box'],
       showArrow: false,
+      pagination: false,
       itemField: {
         avatar: renderTag,
         title: item => item.name,

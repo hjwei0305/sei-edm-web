@@ -95,6 +95,7 @@ const MatchRule = props => {
     const listProps = {
       title: labelTitle,
       showSearch: false,
+      pagination: false,
       onSelectChange: handlerSelectRow,
       selectedKeys,
       rowKey,
