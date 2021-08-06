@@ -123,12 +123,10 @@ const MatchRule = props => {
     if (displayName) {
       return (
         <div className="cell-item edit horizontal">
-          <Tooltip title={labelTitle}>
-            <Space direction="vertical" size={0} className="text">
-              {displayName}
-              <span style={{ fontSize: 12, color: '#999' }}>{displayCode}</span>
-            </Space>
-          </Tooltip>
+          <Space direction="vertical" size={0} className="text">
+            {displayName}
+            <span style={{ fontSize: 12, color: '#999' }}>{displayCode}</span>
+          </Space>
           <ExtIcon type="down" antd />
         </div>
       );
