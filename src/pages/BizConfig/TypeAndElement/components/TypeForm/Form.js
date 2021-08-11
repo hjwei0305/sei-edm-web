@@ -37,17 +37,6 @@ const TemplateForm = props => {
     const { getFieldDecorator } = form;
     return (
       <Form {...formItemLayout}>
-        <FormItem label="业务类型代码">
-          {getFieldDecorator('code', {
-            initialValue: get(rowData, 'code'),
-            rules: [
-              {
-                required: true,
-                message: '业务类型代码不能为空',
-              },
-            ],
-          })(<Input autoComplete="off" />)}
-        </FormItem>
         <FormItem label="业务类型名称">
           {getFieldDecorator('name', {
             initialValue: get(rowData, 'name'),

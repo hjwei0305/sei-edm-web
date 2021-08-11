@@ -58,7 +58,7 @@ class FormModal extends PureComponent {
                   message: '领域代码不能为空',
                 },
               ],
-            })(<Input autoComplete="off" />)}
+            })(<Input autoComplete="off" disabled={!!rowData} />)}
           </FormItem>
           <FormItem label="领域名称">
             {getFieldDecorator('name', {
