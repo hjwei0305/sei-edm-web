@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import cls from 'classnames';
 import { get } from 'lodash';
-import { Dropdown, Input, Tooltip, Button, Popconfirm } from 'antd';
+import { Dropdown, Input, Button, Popconfirm } from 'antd';
 import { ListCard, ExtIcon, Space } from 'suid';
 import styles from './index.less';
 
@@ -156,14 +156,12 @@ const MatchRule = props => {
       );
     }
     return (
-      <Tooltip title={labelTitle}>
-        <div className="cell-item edit horizontal">
-          <span style={{ color: '#999' }} className="text">
-            -
-          </span>
-          <ExtIcon type="down" antd />
-        </div>
-      </Tooltip>
+      <div className="cell-item edit horizontal">
+        <span style={{ color: '#999' }} className="text">
+          -
+        </span>
+        <ExtIcon type="down" antd />
+      </div>
     );
   }, [displayCode, displayName, labelTitle, rowData, dealId, saving]);
 

@@ -57,7 +57,7 @@ const ElementMap = props => {
       const rowId = get(row, 'id');
       setRuleSaving(true);
       setDealId(rowId);
-      const ruleCode = get(it, 'fieldName') || '';
+      const ruleCode = get(it, 'code') || '';
       request({
         method: 'POST',
         url: `${SERVER_PATH}/edm-service/bizTypeTemplate/setValueRule/${rowId}`,
