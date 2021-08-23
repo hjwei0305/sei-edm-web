@@ -62,7 +62,7 @@ class BizRule extends Component {
       {
         title: '规则描述',
         dataIndex: 'remark',
-        width: 480,
+        width: 580,
         required: true,
       },
     ];
