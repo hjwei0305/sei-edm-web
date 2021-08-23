@@ -1,6 +1,5 @@
 import { utils, message } from 'suid';
 import {
-  setOcrTemplateRole,
   delOcrTemplate,
   assignOcrTemplate,
   getAssignedOcrTemplate,
@@ -56,18 +55,6 @@ export default modelExtend(model, {
       }
       if (callback && callback instanceof Function) {
         callback(result);
-      }
-    },
-    *setOcrTemplateRole({ payload, callback }, { call }) {
-      const re = yield call(setOcrTemplateRole, payload);
-      message.destroy();
-      if (re.success) {
-        message.success('设置成功');
-      } else {
-        message.error(re.message);
-      }
-      if (callback && callback instanceof Function) {
-        callback(re);
       }
     },
     *assignOcrTemplate({ payload, callback }, { call }) {

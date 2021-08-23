@@ -5,7 +5,6 @@ import { get } from 'lodash';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import { Button, Drawer, Popconfirm, Input } from 'antd';
 import { Space, ListCard, ExtIcon } from 'suid';
-import MatchRule from './MatchRule';
 import ElementMap from './ElementMap';
 import styles from './index.less';
 
@@ -59,20 +58,6 @@ class OcrTemplate extends Component {
     dispatch({
       type: 'typeOrcTemplate/delOcrTemplate',
       payload: selectedKeys,
-      callback: res => {
-        if (res.success) {
-          this.handlerClearSelect();
-          this.reloadData();
-        }
-      },
-    });
-  };
-
-  setMatchRule = data => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'typeOrcTemplate/setOcrTemplateRole',
-      payload: data,
       callback: res => {
         if (res.success) {
           this.handlerClearSelect();
@@ -159,7 +144,6 @@ class OcrTemplate extends Component {
               要素映射
               <ExtIcon type="down" antd />
             </Button>
-            <MatchRule ocrTemplate={item} onAction={this.setMatchRule} />
           </Space>
         </Space>
         {showElementMap && currentOcrTemplate.id === item.id ? (

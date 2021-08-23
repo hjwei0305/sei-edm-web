@@ -3,8 +3,8 @@ import { get } from 'lodash';
 import { connect } from 'dva';
 import cls from 'classnames';
 import { formatMessage } from 'umi-plugin-react/locale';
-import { Layout, Empty, Input, Popconfirm } from 'antd';
-import { ExtIcon, ListCard } from 'suid';
+import { Layout, Empty, Input, Popconfirm, Tag, Tooltip } from 'antd';
+import { ExtIcon, ListCard, Space } from 'suid';
 import empty from '@/assets/item_empty.svg';
 import { constants } from '@/utils';
 import { FilterView } from '@/components';
@@ -242,18 +242,6 @@ class TypeAndElement extends Component {
     );
   };
 
-  renderName = item => {
-    const frozen = get(item, 'frozen');
-    return (
-      <>
-        {`${get(item, 'name')}`}
-        {frozen === true ? (
-          <span style={{ color: '#f5222d', fontSize: 12, marginLeft: 8 }}>已停用</span>
-        ) : null}
-      </>
-    );
-  };
-
   renderListTitle = () => {
     const {
       loading,
@@ -313,6 +301,21 @@ class TypeAndElement extends Component {
     });
   };
 
+  renderName = item => {
+    return (
+      <Space>
+        {`${get(item, 'name')}`}
+        {item.ruleName ? (
+          <Tooltip title="匹配规则">
+            <Tag color="blue">{item.ruleName}</Tag>
+          </Tooltip>
+        ) : (
+          <Tag>无匹配规则</Tag>
+        )}
+      </Space>
+    );
+  };
+
   render() {
     const {
       loading,
@@ -331,7 +334,13 @@ class TypeAndElement extends Component {
       selectedKeys,
       itemField: {
         title: item => this.renderName(item),
-        description: item => item.remark || item.code,
+        description: item => item.remark,
+        extra: item =>
+          item.frozen ? (
+            <Tag color="red" style={{ borderColor: 'transparent' }}>
+              已停用
+            </Tag>
+          ) : null,
       },
       itemTool: this.renderItemAction,
     };

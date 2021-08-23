@@ -109,18 +109,6 @@ export async function getAllOcrTemplate() {
   });
 }
 
-/** 设置业务类型OCR模板规则 */
-export async function setOcrTemplateRole(data) {
-  const { id, ruleCode } = data;
-  const url = `${SERVER_PATH}/edm-service/bizTypeTemplate/setMatchRole/${id}`;
-  return request({
-    url,
-    method: 'POST',
-    params: { ruleCode },
-    data: {},
-  });
-}
-
 /** 移除业务类型OCR服务模板 */
 export async function delOcrTemplate(ids) {
   const url = `${SERVER_PATH}/edm-service/bizTypeTemplate/removeTemplate`;
