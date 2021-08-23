@@ -1,0 +1,16 @@
+@import '../../../themes/vars.less';
+.container-box {
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  background-color: @page-background-color;
+  :global {
+    .suid-panel {
+      height: 100%;
+      .panel-body {
+        height: 100% !important;
+        max-height: 100% !important;
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
  * @Author: Eason
  * @Date: 2020-02-21 18:03:16
  * @Last Modified by: Eason
- * @Last Modified time: 2021-07-31 14:55:35
+ * @Last Modified time: 2021-08-23 11:36:33
  */
 import { base } from '../../public/app.config.json';
 
@@ -98,6 +98,12 @@ const OCR_TEMPLATE_ACTION = {
   UPDATE: 'update',
 };
 
+const RULE_TYPE = {
+  ALL: { key: 'ALL', title: '全部', color: '' },
+  MATCH: { key: 'MATCH', title: '匹配规则', color: 'blue' },
+  VALUE: { key: 'VALUE', title: '取值规则', color: 'orange' },
+};
+
 export default {
   APP_BASE,
   LOCAL_PATH,
@@ -107,4 +113,5 @@ export default {
   OCR_SERVICE_BTN_KEY,
   OCR_TEMPLATE_TYPE,
   OCR_TEMPLATE_ACTION,
+  RULE_TYPE,
 };

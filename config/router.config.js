@@ -33,6 +33,7 @@ export default [
         path: '/bizConfig',
         name: '业务配置',
         routes: [
+          { path: '/bizConfig/bizRule', component: './BizConfig/BizRule' },
           { path: '/bizConfig/domain', component: './BizConfig/Domain' },
           { path: '/bizConfig/typeList', component: './BizConfig/TypeAndElement' },
         ],
