@@ -163,7 +163,7 @@ const MatchRule = props => {
         <ExtIcon type="down" antd />
       </div>
     );
-  }, [displayCode, displayName, labelTitle, rowData, dealId, saving]);
+  }, [displayCode, displayName, rowData, dealId, saving]);
 
   return (
     <Dropdown
