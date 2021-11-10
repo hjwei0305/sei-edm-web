@@ -156,6 +156,11 @@ const FormConfig = props => {
               ],
             })(<ComboList {...getServiceProviderListProps()} />)}
           </FormItem>
+          <FormItem label="服务地址">
+            {getFieldDecorator('host', {
+              initialValue: get(itemData, 'host'),
+            })(<Input autoComplete="off" />)}
+          </FormItem>
           <FormItem label="秘钥ID">
             {getFieldDecorator('secretId', {
               initialValue: get(itemData, 'secretId'),
